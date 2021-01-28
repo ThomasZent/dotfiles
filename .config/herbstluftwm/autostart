@@ -8,20 +8,29 @@ hc() {
 
 hc emit_hook reload
 
-xsetroot -solid '#5A8E3A'
+wallpaper=~/.config/herbstluftwm/wallpaper.sh
+if [ -x $wallpaper ]
+then
+	"$wallpaper"
+else
+	xsetroot -solid '#5A8E3A'
+fi
 
 # remove all existing keybindings
 hc keyunbind --all
 
 # keybindings
 # if you have a super key you will be much happier with Mod set to Mod4
-Mod=Mod1    # Use alt as the main modifier
-#Mod=Mod4   # Use the super key as the main modifier
+#Mod=Mod1    # Use alt as the main modifier
+Mod=Mod4   # Use the super key as the main modifier
+Alt=Mod1
 
 hc keybind $Mod-Shift-q quit
 hc keybind $Mod-Shift-r reload
 hc keybind $Mod-Shift-c close
 hc keybind $Mod-Return spawn "${TERMINAL:-xterm}" # use your $TERMINAL with xterm as fallback
+
+hc keybind $Mod-space spawn rofi -show run
 
 # basic movement in tiling and floating mode
 # focusing clients
@@ -67,8 +76,9 @@ hc keybind $Mod-Control-Right   resize right +$resizestep
 hc rename default "1" || true
 for i in $(seq 1 9) ; do
     hc add "${i}"
-    hc keybind "$Mod-$key" use_index "$i"
-    hc keybind "$Mod-Shift-$key" move_index "$i"
+    num=`expr $i - 1`
+    hc keybind "$Mod-$i" use_index "$num"
+    hc keybind "$Mod-Shift-$i" move_index "$num"
 done
 
 # cycle through tags
@@ -84,7 +94,7 @@ hc keybind $Mod-p pseudotile toggle
 # The following cycles through the available layouts within a frame, but skips
 # layouts, if the layout change wouldn't affect the actual window positions.
 # I.e. if there are two windows within a frame, the grid layout is skipped.
-hc keybind $Mod-space                                                           \
+hc keybind $Mod-slash                                                           \
             or , and . compare tags.focus.curframe_wcount = 2                   \
                      . cycle_layout +1 vertical horizontal max vertical grid    \
                , cycle_layout +1
@@ -110,10 +120,10 @@ hc set frame_border_normal_color '#101010'
 hc set frame_bg_normal_color '#565656'
 hc set frame_bg_active_color '#345F0C'
 hc set frame_border_width 1
-hc set always_show_frame on
+hc set always_show_frame off
 hc set frame_bg_transparent on
-hc set frame_transparent_width 5
-hc set frame_gap 4
+hc set frame_transparent_width 0
+hc set frame_gap 6
 
 hc attr theme.active.color '#9fbc00'
 hc attr theme.normal.color '#454545'
@@ -128,7 +138,8 @@ hc attr theme.active.inner_color '#3E4A00'
 hc attr theme.active.outer_color '#3E4A00'
 hc attr theme.background_color '#141414'
 
-hc set window_gap 0
+hc set window_gap 4
+hc set window_border_width 2
 hc set frame_padding 0
 hc set smart_window_surroundings off
 hc set smart_frame_surroundings on
@@ -158,8 +169,17 @@ hc unlock
 
 # find the panel
 panel=~/.config/herbstluftwm/panel.sh
-[ -x "$panel" ] || panel=/etc/xdg/herbstluftwm/panel.sh
+if [ ! -f "$panel" ]
+then
+	panel=/usr/local/etc/xdg/herbstluftwm/panel.sh
+fi
 for monitor in $(hc list_monitors | cut -d: -f1) ; do
     # start it on each monitor
     "$panel" "$monitor" &
 done
+
+compositor=~/.config/herbstluftwm/compositor.sh
+if [ -f "$compositor" ]
+then
+	"$compositor"
+fi
