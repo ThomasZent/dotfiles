@@ -1,2 +1,33 @@
 cursor:
         style: Underline
+font:
+        normal:
+                family: Hack Nerd Font Mono
+                background: '#1A0711'
+colors:
+        # Default colors
+        primary:
+                background: '0x1A0711'
+                foreground: '0x8a8986'
+
+        # Normal colors
+        normal:
+                black:   '0x28211c'
+                red:     '0xcf6a4c'
+                green:   '0x54be0d'
+                yellow:  '0xf9ee98'
+                blue:    '0x5ea6ea'
+                magenta: '0x9b859d'
+                cyan:    '0xafc4db'
+                white:   '0x8a8986'
+
+        # Bright colors
+        bright:
+                black:   '0x666666'
+                red:     '0xcf6a4c'
+                green:   '0x54be0d'
+                yellow:  '0xf9ee98'
+                blue:    '0x5ea6ea'
+                magenta: '0x9b859d'
+                cyan:    '0xafc4db'
+                white:   '0xbaae9e'
