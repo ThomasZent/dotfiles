@@ -1,0 +1,17 @@
+# $FreeBSD: releng/12.2/share/skel/dot.login 320672 2017-07-05 13:08:07Z trasz $
+#
+# .login - csh login script, read by login shell, after `.cshrc' at login.
+#
+# See also csh(1), environ(7).
+#
+
+# Query terminal size; useful for serial lines.
+if ( -x /usr/bin/resizewin ) /usr/bin/resizewin -z
+
+# Display a random cookie on each login.
+if ( -x /usr/bin/fortune ) /usr/bin/fortune freebsd-tips
+
+SHELL=zsh; export SHELL
+TERMINAL=alacritty; export TERMINAL
+EDITOR=nvim; export EDITOR
+PAGER=less; export PAGER
