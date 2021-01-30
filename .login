@@ -11,7 +11,7 @@ if ( -x /usr/bin/resizewin ) /usr/bin/resizewin -z
 # Display a random cookie on each login.
 if ( -x /usr/bin/fortune ) /usr/bin/fortune freebsd-tips
 
-SHELL=zsh; export SHELL
-TERMINAL=alacritty; export TERMINAL
-EDITOR=nvim; export EDITOR
-PAGER=less; export PAGER
+setenv SHELL /usr/local/bin/fish
+setenv TERMINAL /usr/local/bin/alacritty
+setenv EDITOR /usr/local/bin/nvim
+setenv PAGER /usr/bin/less

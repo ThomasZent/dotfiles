@@ -32,6 +32,8 @@ hc keybind $Mod-Return spawn "${TERMINAL:-xterm}" # use your $TERMINAL with xter
 
 hc keybind $Mod-space spawn rofi -show run
 
+hc keybind Print spawn screenshot
+
 # basic movement in tiling and floating mode
 # focusing clients
 hc keybind $Mod-Left  focus left
