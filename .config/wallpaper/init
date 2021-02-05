@@ -1,0 +1,2 @@
+#!/bin/sh
+feh --bg-scale `readlink $HOME/.config/wallpaper/file`

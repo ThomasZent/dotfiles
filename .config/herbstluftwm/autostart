@@ -8,7 +8,7 @@ hc() {
 
 hc emit_hook reload
 
-wallpaper=~/.config/herbstluftwm/wallpaper.sh
+wallpaper=~/.config/wallpaper/init
 if [ -x $wallpaper ]
 then
 	"$wallpaper"
@@ -31,6 +31,7 @@ hc keybind $Mod-Shift-c close
 hc keybind $Mod-Return spawn "${TERMINAL:-xterm}" # use your $TERMINAL with xterm as fallback
 
 hc keybind $Mod-space spawn rofi -show run
+hc keybind $Mod-Shift-p spawn /home/thomas/.config/herbstluftwm/comtoggle
 
 hc keybind Print spawn screenshot
 
@@ -170,6 +171,15 @@ hc unlock
 # hc set_monitors 1280x1024+0+0 1280x1024+1280+0
 # or simply:
 # hc detect_monitors
+
+PADDING=$(herbstclient list_padding)
+
+#re-add monitor called 'float' with same padding and dimensions as the monitor under focus in tag 9
+herbstclient remove_monitor float
+herbstclient add_monitor $(herbstclient list_monitors | grep \[FOCUS\] | grep -oe '[0-9]\+x[0-9]\++[0-9]\++[0-9]\+') 9 float
+herbstclient lock_tag float
+#add same padding:
+herbstclient pad float $PADDING
 
 # find the panel
 panel=~/.config/herbstluftwm/panel.sh
