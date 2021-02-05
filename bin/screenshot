@@ -1,0 +1,4 @@
+#! /bin/sh
+DATE=`date "+%Y-%m-%d"`
+	
+scrot $HOME/pictures/screenshots/$DATE.png
