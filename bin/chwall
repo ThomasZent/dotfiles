@@ -1,2 +1,9 @@
 #!/bin/sh
-ln -fs $1 $HOME/.config/wallpaper/file
+
+file=$1
+if [ "`echo $1 | head -c 1`" != "/" ]; then
+    file=$HOME/pictures/wallpapers/$1
+fi
+
+ln -fs $file $HOME/.config/wallpaper/file
+feh --bg-scale $file
